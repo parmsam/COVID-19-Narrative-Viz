@@ -1,9 +1,22 @@
+* {
+  font-family: Lobster,Poiret One,palatino;
+}
+
 h1 {
   text-align: center;
-  font-family: Lobster,Poiret One,palatino;
-  color: red;
-;
+  /*font-family: Lobster,Poiret One,palatino;*/
+  color: crimson;
+;}
+
+h2 {
+  text-align: center;
+  color: black;
 }
+h3 {
+  text-align: center;
+  /* font-family: Lobster,Poiret One,palatino; */
+  color: red;
+;}
 
 #my_dataviz {
   text-align: center;
@@ -12,10 +25,12 @@ h1 {
   height: 100%;
 }
 
+
 #selectButton {
   position: relative;
   left:25%;
   right:50%;
+
 }
 
  div.tooltip {
@@ -27,4 +42,22 @@ h1 {
     color: black;
     background: lightsteelblue;
     pointer-events: none;
+    left:50%;
+    right:50%;
+}
+
+
+.enter_button {
+  position: relative;
+  left:50%;
+  right:50%;
+  font-size:25px;
+  text-decoration: none;
+  background-color: #EEEEEE;
+  color: #333333;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
 }

@@ -1,7 +1,7 @@
 // set the dimensions and margins of the graph
 var margin = {top: 30, right: 70, bottom: 30, left:30},
-    width = 900 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+    width = 800 - margin.left - margin.right,
+    height = 300 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 var svg = d3.select("#my_dataviz")
@@ -24,7 +24,7 @@ weekday[5] = "Friday";
 weekday[6] = "Saturday";
 
 //Read the data
-d3.csv("https://raw.githubusercontent.com/parmsam/COVID-19-Narrative-Viz-Indy/master/covid_report_county_date.csv",
+d3.csv("https://raw.githubusercontent.com/parmsam/covid-19-narrative-viz-indy/master/covid_report_county_date.csv",
 
 function(data) {
 
@@ -75,7 +75,7 @@ function(data) {
     svg.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x).ticks(7));
+      .call(d3.axisBottom(x));
 
     // Add Y axis
     var y = d3.scaleLinear()
@@ -193,22 +193,22 @@ function(data) {
       //x.domain(d3.extent(dataFilter, function(d) { return d.year; }));
       //y.domain([d3.min(dataFilter, function(d) { return d.n; }), d3.max(dataFilter, function(d) { return d.n; })]);
 
-      //not updating axis to avoid tooltip update;
-      // var x = d3.scaleTime()
-      //   .domain(d3.extent(dataFilter, function(d) { return d.year; }))
-      //   .range([ 0, width ]);
-      //
-      // svg.selectAll(".x.axis")
-      //   .attr("transform", "translate(0," + height + ")")
-      //   .call(d3.axisBottom(x));
-      //
-      // var y = d3.scaleLinear()
-      //   .domain([0, d3.max(dataFilter, function(d) { return +d.n_deaths; })])
-      //   .range([ height, 0 ]);
-      // //svg.append("g")
-      // //  .call(d3.axisLeft(y));
-      // svg.selectAll(".y.axis")
-      //      .call(d3.axisLeft(y));
+      //not updating axis to avoid tooltip update right now;
+      x = d3.scaleTime()
+        .domain(d3.extent(dataFilter, function(d) { return d.year; }))
+        .range([ 0, width ]);
+
+      svg.selectAll(".x.axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+
+      y = d3.scaleLinear()
+        .domain([0, d3.max(dataFilter, function(d) { return +d.n_deaths; })])
+        .range([ height, 0 ]);
+      //svg.append("g")
+      //  .call(d3.axisLeft(y));
+      svg.selectAll(".y.axis")
+           .call(d3.axisLeft(y));
 
       // Give these new data to update line
       line
@@ -232,6 +232,8 @@ function(data) {
             .curve(d3.curveMonotoneX)
           )
           .attr("stroke", function(d){ return 'black' })
+      d3.select(".cx").remove();
+      d3.select(".cy").remove();
 
       function mousemove() {
         // recover coordinate we need
@@ -248,9 +250,8 @@ function(data) {
                .style("left", (d3.mouse(this)[0]+90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
                .style("top", (d3.mouse(this)[1]-30) + "px").duration(2)
       }
+
       tooltip.style("background", myColor(selectedGroup));
-
-
     }
 
     // When the button is changed, run the updateChart function
