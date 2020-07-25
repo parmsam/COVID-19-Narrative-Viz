@@ -23,6 +23,12 @@ weekday[4] = "Thursday";
 weekday[5] = "Friday";
 weekday[6] = "Saturday";
 
+// function setupSelections(chartConfig, rawData) {
+//   const confirmedRadio = document.getElementById("confirmed");
+//   const deathsRadio = document.getElementById("deaths");
+//
+// addChangeListener(confirmedRadio);
+
 //Read the data
 d3.csv("https://raw.githubusercontent.com/parmsam/covid-19-narrative-viz-indy/master/covid_report_county_date.csv",
 
@@ -34,11 +40,25 @@ function(data) {
       // d.n = +d.n;
       d.name = d.COUNTY_NAME;
       d.year = d3.timeParse("%Y-%m-%d")(d.DATE);
-      d.n_deaths = +d.COVID_COUNT;
-      d.n_cases = +d.COVID_COUNT;
-      d.n_tests = +d.COVID_TEST;
+      d.deaths = +d.COVID_DEATHS;
+      d.cases = +d.COVID_COUNT;
       d.case_07da = +d.case_07da;
+      d.death_07da = +d.death_07da;
     });
+
+    var allGroup1 = ["cases", "deaths"];
+
+    d3.select("#selectMeasure")
+       .selectAll('myOptions')
+      	.data(allGroup1)
+       .enter()
+     	.append('option')
+       .text(function (d) { return d; }) // text showed in the menu
+       .attr("value", function (d) { return d; }) // corresponding value returned by the button
+
+    //var selectedOption = d3.select("#selectMeasure").property("value")
+    var selectedOption = 'cases';
+    //console.log(selectedOption);
     // List of groups (here I have one group per column)
     var allGroup = d3.map(data, function(d){return(d.name)}).keys()
 
@@ -79,7 +99,7 @@ function(data) {
 
     // Add Y axis
     var y = d3.scaleLinear()
-      .domain([0, d3.max(data, function(d) { return +d.n_deaths; })])
+      .domain([0, d3.max(data, function(d) { return +d[selectedOption]; })])
       .range([ height, 0 ]);
 
     svg.append("g")
@@ -101,7 +121,7 @@ function(data) {
         .style("fill", "lightsteelblue")
         .attr("stroke", "black")
         .attr('r', 8.5)
-        .style("opacity", 0)
+        .style("opacity", 0);
 
     // Create the text that travels along the curve of chart
     var focusText = svg
@@ -109,7 +129,7 @@ function(data) {
       .append('text')
         .style("opacity", 0)
         .attr("text-anchor", "left")
-        .attr("alignment-baseline", "middle")
+        .attr("alignment-baseline", "middle");
 
     var choice = "Marion";
     // Initialize line with first group of the list
@@ -119,12 +139,12 @@ function(data) {
         .datum(data.filter(function(d){return d.name==choice}))
         .attr("d", d3.line()
           .x(function(d) { return x(d.year) })
-          .y(function(d) { return y(d.n_deaths) })
+          .y(function(d) { return y(d[selectedOption]) })
           .curve(d3.curveMonotoneX)
         )
         .attr("stroke", function(d){ return myColor("valueA") })
         .style("stroke-width", 2)
-        .style("fill", "none")
+        .style("fill", "none");
 
     var line2 = svg
       .append('g')
@@ -137,7 +157,7 @@ function(data) {
         )
         .attr("stroke", function(d){ return "black"})
         .style("stroke-width", 3)
-        .style("fill", "none")
+        .style("fill", "none");
 
   // Create a rect on top of the svg area: this rectangle recovers mouse position
 
@@ -173,9 +193,9 @@ function(data) {
         tooltip.html("On " + weekday[(selectedData.year).getDay()] + " " +
         monthShortNames[(selectedData.year).getMonth()] + ", " +
         (selectedData.year).getDate() + " in " + choice + " County, IN " + " there was " +
-        "<b>"+ selectedData.n_deaths + " case(s)</b>" + " with a rolling <b>7 day average of " +
-        selectedData.case_07da +"</b>")
-              .style("left", (d3.mouse(this)[0]+400) + "px")
+        "<b>"+ selectedData[selectedOption] +" "+ selectedOption + "</b>" + " with a rolling <b>7 day average of " +
+        selectedData.case_07da + "</b>")
+              //.style("left", (d3.mouse(this)[0]) + "px")
                //.style("left", (d3.mouse(this)[0]+90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
                //.style("top", (d3.mouse(this)[1]-30) + "px").duration(2)
       }
@@ -186,8 +206,8 @@ function(data) {
 
 
     // A function that update the chart
-    function updateChart(selectedGroup) {
-
+    function updateChart(selectedGroup, selectedMeasure) {
+      selectedMeasure = selectedMeasure.toString();
       // Create new data with the selection?
       var dataFilter = data.filter(function(d){return d.name==selectedGroup})
       //x.domain(d3.extent(dataFilter, function(d) { return d.year; }));
@@ -203,7 +223,7 @@ function(data) {
         .call(d3.axisBottom(x));
 
       y = d3.scaleLinear()
-        .domain([0, d3.max(dataFilter, function(d) { return +d.n_deaths; })])
+        .domain([0, d3.max(dataFilter, function(d) { return +d[selectedMeasure]; })])
         .range([ height, 0 ]);
       //svg.append("g")
       //  .call(d3.axisLeft(y));
@@ -217,10 +237,19 @@ function(data) {
           .duration(1000)
           .attr("d", d3.line()
             .x(function(d) { return x(d.year) })
-            .y(function(d) { return y(+d.n_deaths) })
+            .y(function(d) { return y(+d[selectedMeasure]) })
             .curve(d3.curveMonotoneX)
           )
           .attr("stroke", function(d){ return myColor(selectedGroup) })
+
+      switch (selectedMeasure) {
+        case "deaths":
+          rolling_avg = "death_07da";
+          break;
+        case "cases":
+          rolling_avg = "case_07da";
+          break;
+      };
 
       line2
           .datum(dataFilter)
@@ -228,7 +257,7 @@ function(data) {
           .duration(1000)
           .attr("d", d3.line()
             .x(function(d) { return x(d.year) })
-            .y(function(d) { return y(+d.case_07da) })
+            .y(function(d) { return y(+d[rolling_avg]) })
             .curve(d3.curveMonotoneX)
           )
           .attr("stroke", function(d){ return 'black' })
@@ -242,24 +271,46 @@ function(data) {
         selectedData = dataFilter.filter(function(d){return d.name==choice})[i]
         focus
           .attr("cx", x(selectedData.year))
-          .attr("cy", y(selectedData.case_07da))
-        tooltip.html("On " + weekday[(selectedData.year).getDay()] + " " +
-        monthShortNames[(selectedData.year).getMonth()] + ", " +
-        (selectedData.year).getDate() + " in " + choice + " County, IN " + " there was " +
-        "<b>"+ selectedData.n + " case(s)</b>")
-               .style("left", (d3.mouse(this)[0]+90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
-               .style("top", (d3.mouse(this)[1]-30) + "px").duration(2)
+          .attr("cy", y(selectedData[rolling_avg]))
+          tooltip.html("On " + weekday[(selectedData.year).getDay()] + " " +
+          monthShortNames[(selectedData.year).getMonth()] + ", " +
+          (selectedData.year).getDate() + " in " + choice + " County, IN " + " there was " +
+          "<b>"+ selectedData[selectedMeasure] +" "+ selectedMeasure + "</b>"+ " with a rolling <b>7 day average of " +
+          selectedData[rolling_avg] + "</b>")
+                //.style("left", (d3.mouse(this)[0]+400) + "px")
       }
+
+      svg
+      .select('rect')
+      .on('mousemove', null);
+
+      svg
+      .select('rect')
+      .on('mousemove', mousemove);
 
       tooltip.style("background", myColor(selectedGroup));
     }
 
+
     // When the button is changed, run the updateChart function
     d3.select("#selectButton").on("change", function(d) {
-        // recover the option that has been chosen
-        var selectedOption = d3.select(this).property("value")
+        // recover the county option that has been chosen
+        var selectedOption = d3.select(this).property("value");
+        var selectedMeasure = d3.select("#selectMeasure").property("value");
+        //console.log(selectedOption);
+        //console.log(selectedMeasure);
         // run the updateChart function with this selected option
-        updateChart(selectedOption)
+        updateChart(selectedOption, selectedMeasure)
+        choice = selectedOption;
+    })
+
+    d3.select("#selectMeasure").on("change", function(d) {
+        // recover the county option that has been chosen
+        var selectedMeasure = d3.select(this).property("value");
+        var selectedOption = d3.select("#selectButton").property("value");
+
+        // run the updateChart function with this selected option
+        updateChart(selectedOption, selectedMeasure)
         choice = selectedOption;
     })
 

@@ -13,6 +13,14 @@
 
   <body>
         <h3>COVID-19 Cases by Indiana County 2020</h2>
+        <!--div class="radioButtons1">
+            <span><input type="radio" name="type" id="confirmed" value="confirmed" checked="checked" /><label for="confirmed">Confirmed</label></span>
+            <span><input type="radio" name="type" id="deaths" value="deaths" /><label for="deaths">Deaths</label></span>
+        </div-->
+        <p class="case_death_text"> Marion County represents the most populated county in Indiana with a population approaching one million.
+          Cases and deaths... </p>
+        <br>
+        <select id="selectMeasure"></select>
         <select id="selectButton"></select>
         <!-- Create a div where the graph will take place -->
         <div id="my_dataviz"></div>
@@ -20,7 +28,13 @@
         <!-- Color Scale -->
         <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
         <script src="index.js"></script>
+        <br>
+
+
 
   </body>
-
+  <a href="index.html" class="enter_button" style="position: absolute;
+width: 4%; left: 18%; top: 75%">  &lt; Back</a>
+  <a href="index.html" class="enter_button" style="position: absolute;
+  width: 6%; left: 75%; top: 75%" >Forward &gt;</a>
 </html>

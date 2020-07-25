@@ -30,20 +30,30 @@ h3 {
   position: relative;
   left:25%;
   right:50%;
+}
 
+#selectMeasure {
+  position: relative;
+  left: 35%;
+  right: 50%;
+}
+
+.case_death_text {
+  text-align: center;
 }
 
  div.tooltip {
-    position: absolute;
+    position: relative;
     text-align: center;
-    width: 90px;
-    padding: 5px;
-    font: 13px palatino;
+    width: 150px;
+    padding: 10px;
+    font: 11px palatino;
     color: black;
     background: lightsteelblue;
     pointer-events: none;
-    left:50%;
-    right:50%;
+    opacity: 0.05;
+    left:45%;
+    right:40%;
 }
 
 
