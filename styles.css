@@ -1,0 +1,30 @@
+h1 {
+  text-align: center;
+  font-family: Lobster,Poiret One,palatino;
+  color: red;
+;
+}
+
+#my_dataviz {
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+#selectButton {
+  position: relative;
+  left:25%;
+  right:50%;
+}
+
+ div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 90px;
+    padding: 5px;
+    font: 13px palatino;
+    color: black;
+    background: lightsteelblue;
+    pointer-events: none;
+}
