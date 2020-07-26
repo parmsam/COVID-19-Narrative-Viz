@@ -14,29 +14,52 @@
   </head>
 
   <body>
-        <h2 class="Page1_title">COVID-19 Cases and Deaths in Marion County, Indiana for 2020 (as of June 24, 2020)</h2>
+        <h2 class="Page1_title">COVID-19 Cases, Deaths, and State Response in Indiana Counties for 2020 (as of June 24, 2020)</h2>
         <!--div class="radioButtons1">
             <span><input type="radio" name="type" id="confirmed" value="confirmed" checked="checked" /><label for="confirmed">Confirmed</label></span>
             <span><input type="radio" name="type" id="deaths" value="deaths" /><label for="deaths">Deaths</label></span>
         </div-->
-        <p class="case_death_text" style="margin-left: auto; margin-right: auto; max-width: 50%;"> Marion County, Indiana holds the city of Indianapolis and represents the most populated county in Indiana with a population approaching one million (964,582 as of 2019).
-          The first COVID-19 cases was detected on March 6, 2020, with the first COVID-19 death occuring on March 16. COVID-19 case diagnoses peaked in Marion County on Tuesday, May 5th at 305 cases with deaths peaking most recently on Wednesday, May 20 at 16 deaths.
+        <p class="case_death_text" style="margin-left: auto; margin-right: auto; max-width: 50%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Indiana has a population of 6.73 millions people.
+          Marion County holds the city of Indianapolis (capitol of Indiana) and represents the most populated county in Indiana, with a population approaching one million (964,582 as of 2019).
+          <br><br>The first COVID-19 case in Indiana was detected on March 6, 2020 (in Marion County), leading Indiana's Governor to declare a public health emergency.
+          The first COVID-19 death occuring on March 16th. COVID-19 case diagnoses peaked in Marion County on May 5th at 305 cases with deaths peaking most recently on May 20th at 16 deaths.
            <br><br> Below one can see the COVID-19 case trend for Marion County with a black line indicating the rolling 7 day average.  One can use dropdown menus to examine the death counts as well as select other Indiana counties.
-          Also included are labels indicating <a href="https://www.backontrack.in.gov/2348.htm">Indiana Back on Track stages</a> for reopening. The rolling 7 day average curve indicates a rise is occuring after initiation of  stage 4.5 in Marion County.
+           The rolling 7 day average curve indicates a rise is occuring after initiation of  stage 4.5 in Marion County. Included are labels with major response events and <a href="https://www.backontrack.in.gov/2348.htm">Indiana Back on Track stages</a>
+           for reopening.
+            <br><br>
         </p>
+        <ul class="response_list" style="max-width: 50%; margin-left: auto; margin-right: auto;">
+         <li> <b>A:</b> On March 16, Indiana's governor ordered all bars, restaurants, and nightclubs to close to in-house patrons. On March 19,
+           State of Emergency was to be extended for another 30 days,
+           all K-12 schools (both public and private) were to remain closed, order prohibiting evictions and foreclosures, and utilities prohibited
+           from disconnecting services. Extensions for income taxes and property taxes.</li> <br>
+         <li> <b>B:</b> On March 23, issues stay at home order effective March 25 to April 7. Non-essential businesses ordered to close or allow
+           employees to work from home. Public gatherings limited to 10 people. </li> <br>
+         <li> <b>C:</b> On April 2/3, education superintendent announced that all K-12 schools would provide remote instruction for remainder of 2019-2020 school year and governor extended stay at home order two weeks.</li></br>
+         <li> <b>D:</b> On May 1, governor announced five-stage Back on Track Plan.</li><br>
+         <br><a href="https://www.backontrack.in.gov/files/BackOnTrack-IN_WhatsOpen-Closed-stage1.pdf"><img src="images/Stage1_img.png" width=250px;></a>
+           &nbsp;&nbsp;<a href="https://www.backontrack.in.gov/files/BackOnTrack-IN_WhatsOpen-Closed-stage2.pdf"><img src="images/Stage2_img.png" width=250px;></a>
+           &nbsp;&nbsp;<a href="https://www.backontrack.in.gov/files/BackOnTrack-IN_WhatsOpen-Closed-stage3.pdf"><img src="images/Stage3_img.png" width=250px;></a>
+           &nbsp;&nbsp;<a href="https://www.backontrack.in.gov/files/Stage_4.pdf"><img src="images/Stage4_img.png" width=250px;></a>
+           &nbsp;&nbsp;<a href="https://www.backontrack.in.gov/files/BackOnTrack-IN_Stage4.5_UPDATE_STAGE4.5.pdf"><img src="images/Stage4.5_img.png" width=250px;></a></li>
+       </ul>
         <br>
+        <!-- <br><br>
+        <img src="backontrack_infographic.jpg" style="  display: block; margin-left: auto; margin-right: auto; width: 30%; ">
+        <br><br> -->
 
-        <div class="chartButtons">
-        <div class="selectM"><select id="selectMeasure"></select></div>
-        <br>
+        <div class="chartButtons" style="max-width: 70%; margin-left: auto; margin-right: auto;">
+        <br><br>
+        <div class="selectM"><select id="selectMeasure"></select></div> <br>
         <div class="selectB"><select id="selectButton"></select></div>
         </div>
+        <br>
         <!-- Create a div where the graph will take place -->
         <div id="my_dataviz"></div>
-
         <!-- Color Scale -->
         <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
         <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js"></script>
         <script src="index.js"></script>
         <br>
 

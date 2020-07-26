@@ -1,7 +1,7 @@
 // set the dimensions and margins of the graph
-var margin = {top: 60, right: 70, bottom: 30, left:40},
-    width = 800 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
+var margin = {top: 60, right: 70, bottom: 35, left:40},
+    width = 900 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 var svg = d3.select("#my_dataviz")
@@ -98,6 +98,12 @@ function(data) {
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x));
 
+    var xaxistextLabel = svg.append("text")
+       .attr("transform","translate(" + (width/2) + " ," +
+                            (height + margin.bottom-0.9) + ")")
+       .style("text-anchor", "middle")
+       .text("Date");
+
     // Add Y axis
     var y = d3.scaleLinear()
       .domain([0, d3.max(data, function(d) { return +d[selectedOption]; })])
@@ -107,13 +113,15 @@ function(data) {
       .attr("class", "y axis")
       .call(d3.axisLeft(y));
       // text label for the y axis
-  svg.append("text")
+    var yaxistextLabel = svg.append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 0  - margin.left - 4)
       .attr("x",0 - (height / 2))
       .attr("dy", "1em")
       .style("text-anchor", "middle")
-      .text("Value");
+      .text(selectedOption);
+
+
 
   // This allows to find the closest X index of the mouse:
     var bisect = d3.bisector(function(d) { return d.year; }).left;
@@ -166,52 +174,94 @@ function(data) {
         .attr("stroke", function(d){ return "black"})
         .style("stroke-width", 3)
         .style("fill", "none");
+
+        /////
+
+
+
   // Add annotation to the chart
 
-  const annotations = [{
+  const annotations = [
+    {
+      note: { label: "A" },
+      subject: {
+        y1: margin.top + 50,
+        y2: height + margin.bottom + 25
+      },
+      y: margin.top + 50,
+      data: { x: "2020-03-16"}
+    },
+    {
+      note: { label: "B" },
+      subject: {
+        y1: margin.top + 50,
+        y2: height + margin.bottom + 25
+      },
+      y: margin.top + 50,
+      data: { x: "2020-03-23"}
+    },
+    {
+      note: { label: "C" },
+      subject: {
+        y1: margin.top + 50,
+        y2: height + margin.bottom + 25
+      },
+      y: margin.top + 50,
+      data: { x: "2020-04-02"}
+    },
+    {
+      note: { label: "D" },
+      subject: {
+        y1: margin.top + 50,
+        y2: height + margin.bottom + 25
+      },
+      y: margin.top + 50,
+      data: { x: "2020-05-01"}
+    },
+    {
        note: { label: "Stage 1" },
        subject: {
          y1: margin.top,
-         y2: height + margin.bottom + 30
+         y2: height + margin.bottom + 25
        },
        y: margin.top,
-       data: { x: "03/23/2020"} //position the x based on an x scale
+       data: { x: "2020-03-20"} //position the x based on an x scale
      },
      {
        note: { label: "Stage 2" },
        subject: {
          y1: margin.top,
-         y2: height + margin.bottom + 30
+         y2: height + margin.bottom + 25
        },
        y: margin.top,
-       data: { x: "5/4/2020"}
+       data: { x: "2020-05-04"}
      },
      {
        note: { label: "Stage 3"},
        subject: {
          y1: margin.top,
-         y2: height + margin.bottom + 30
+         y2: height + margin.bottom + 25
        },
        y: margin.top,
-       data: { x: "05/22/2020"}
+       data: { x: "2020-05-22"}
      },
      {
        note: { label: "Stage 4"},
        subject: {
          y1: margin.top,
-         y2: height + margin.bottom + 30
+         y2: height + margin.bottom + 25
        },
        y: margin.top,
-       data: { x: "06/12/2020"}
+       data: { x: "2020-06-12"}
      },
      {
        note: { label: "Stage 4.5"},
        subject: {
          y1: margin.top,
-         y2: height + margin.bottom + 30
+         y2: height + margin.bottom + 25
        },
        y: margin.top,
-       data: { x: "07/04/2020"}
+       data: { x: "2020-07-04"}
      }]
 
      //An example of taking the XYThreshold and merging it
@@ -230,11 +280,11 @@ function(data) {
        .type(type)
        //Gives you access to any data objects in the annotations array
        .accessors({
-         x: function(d){ return x(new Date(d.x))},
+         x: function(d){ return x(new d3.timeParse("%Y-%m-%d")(d.x))+38},
          y: function(d){ return y(d.y) }
        })
        .annotations(annotations)
-       .textWrap(10)
+       .textWrap(60)
 
      d3.select("svg")
        .append("g")
@@ -278,15 +328,25 @@ function(data) {
         "<b>"+ selectedData[selectedOption] +" "+ selectedOption + "</b>" + " with a rolling <b>7 day average of " +
         selectedData.case_07da + "</b>")
               //.style("left", (d3.mouse(this)[0]) + "px")
-               //.style("left", (d3.mouse(this)[0]+90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
+               .style("top", 15+  "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
                //.style("top", (d3.mouse(this)[1]-30) + "px").duration(2)
       }
     function mouseout() {
       focus.style("opacity", 0)
       focusText.style("opacity", 0)
+      tooltip
+        .transition()
+        .duration(200)
+        .style("opacity", 0)
     }
+    //var svg = d3.select("#my_dataviz")
 
+    // Handmade legend
+    svg.append("circle").attr("cx",350).attr("cy",-50).attr("r", 6).style("fill", "black")
+    svg.append("text").attr("x", 370).attr("y", -50).text("Rolling 7 day average").style("font-size", "15px").attr("alignment-baseline","middle")
 
+    svg.append("circle").attr("cx",160).attr("cy",-50).attr("r", 6).style("fill", myColor("valueA"))
+    svg.append("text").attr("x", 180).attr("y", -50).text("Cases or Deaths").style("font-size", "15px").attr("alignment-baseline","middle")
 
 
     // A function that update the chart
@@ -313,6 +373,10 @@ function(data) {
       //  .call(d3.axisLeft(y));
       svg.selectAll(".y.axis")
            .call(d3.axisLeft(y));
+
+      yaxistextLabel.text(selectedMeasure)
+
+      svg.append("circle").attr("cx",160).attr("cy",-50).attr("r", 6).style("fill", myColor(selectedGroup))
 
       // Give these new data to update line
       line
