@@ -1,5 +1,5 @@
 * {
-  font-family: Lobster,Poiret One,palatino;
+  font-family: Recurve, palatino, Poiret One, Lobster;
 }
 
 .head {
@@ -22,11 +22,19 @@ h3 {
   color: red;
 ;}
 
+#Page1_title {
+ color: orangered;
+}
+
 #my_dataviz {
   text-align: center;
   position: absolute;
   width: 100%;
   height: 100%;
+}
+
+#select {
+  padding-left: 2em;
 }
 
 
@@ -38,8 +46,9 @@ h3 {
 
 #selectMeasure {
   position: relative;
-  left: 40%;
+  left: 25%;
   right: 50%;
+  down: 20%;
 }
 
 .case_death_text {
@@ -74,4 +83,27 @@ h3 {
   border-right: 1px solid #333333;
   border-bottom: 1px solid #333333;
   border-left: 1px solid #CCCCCC;
+}
+
+.annotation path {
+  stroke: #00796B;
+}
+
+.annotation:not(.above):not(.anomaly) path {
+  stroke-dasharray: 1,3;
+  opacity: 0.5;
+}
+
+.annotation text {
+  fill: darkred ;
+  font-size: 14px;
+  opacity: 0.5;
+}
+
+.annotation.above path {
+  stroke: darkred;
+}
+
+.annotation-note-bg {
+  fill: rgba(0, 0, 0, 0);
 }

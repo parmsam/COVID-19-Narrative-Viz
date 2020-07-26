@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Recursive" rel="stylesheet" type="text/css">
 
 <html lang="en">
 
@@ -13,21 +14,29 @@
   </head>
 
   <body>
-        <h3>COVID-19 Cases by Indiana County 2020</h2>
+        <h2 class="Page1_title">COVID-19 Cases and Deaths in Marion County, Indiana for 2020 (as of June 24, 2020)</h2>
         <!--div class="radioButtons1">
             <span><input type="radio" name="type" id="confirmed" value="confirmed" checked="checked" /><label for="confirmed">Confirmed</label></span>
             <span><input type="radio" name="type" id="deaths" value="deaths" /><label for="deaths">Deaths</label></span>
         </div-->
-        <p class="case_death_text"> Marion County represents the most populated county in Indiana with a population approaching one million.
-          Cases and deaths... </p>
+        <p class="case_death_text" style="margin-left: auto; margin-right: auto; max-width: 50%;"> Marion County, Indiana holds the city of Indianapolis and represents the most populated county in Indiana with a population approaching one million (964,582 as of 2019).
+          The first COVID-19 cases was detected on March 6, 2020, with the first COVID-19 death occuring on March 16. COVID-19 case diagnoses peaked in Marion County on Tuesday, May 5th at 305 cases with deaths peaking most recently on Wednesday, May 20 at 16 deaths.
+           <br><br> Below one can see the COVID-19 case trend for Marion County with a black line indicating the rolling 7 day average.  One can use dropdown menus to examine the death counts as well as select other Indiana counties.
+          Also included are labels indicating <a href="https://www.backontrack.in.gov/2348.htm">Indiana Back on Track stages</a> for reopening. The rolling 7 day average curve indicates a rise is occuring after initiation of  stage 4.5 in Marion County.
+        </p>
         <br>
-        <select id="selectMeasure"></select>
-        <select id="selectButton"></select>
+
+        <div class="chartButtons">
+        <div class="selectM"><select id="selectMeasure"></select></div>
+        <br>
+        <div class="selectB"><select id="selectButton"></select></div>
+        </div>
         <!-- Create a div where the graph will take place -->
         <div id="my_dataviz"></div>
 
         <!-- Color Scale -->
         <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+        <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
         <script src="index.js"></script>
         <br>
 
@@ -35,7 +44,7 @@
 
   </body>
   <a href="index.html" class="enter_button" style="position: absolute;
-width: 2%; left: 18%; top: 75%">  &lt;</a>
+width: 2%; left: 20%; top: 25%">  &lt;</a>
   <a href="index.html" class="enter_button" style="position: absolute;
-  width: 2%; left: 75%; top: 75%" > &gt;</a>
+  width: 2%; left: 75%; top: 25%" > &gt;</a>
 </html>

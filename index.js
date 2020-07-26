@@ -1,5 +1,5 @@
 // set the dimensions and margins of the graph
-var margin = {top: 30, right: 70, bottom: 30, left:30},
+var margin = {top: 60, right: 70, bottom: 30, left:40},
     width = 800 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
@@ -23,9 +23,10 @@ weekday[4] = "Thursday";
 weekday[5] = "Friday";
 weekday[6] = "Saturday";
 
+
 // function setupSelections(chartConfig, rawData) {
 //   const confirmedRadio = document.getElementById("confirmed");
-//   const deathsRadio = document.getElementById("deaths");
+//   const DeathsRadio = document.getElementById("Deaths");
 //
 // addChangeListener(confirmedRadio);
 
@@ -40,13 +41,13 @@ function(data) {
       // d.n = +d.n;
       d.name = d.COUNTY_NAME;
       d.year = d3.timeParse("%Y-%m-%d")(d.DATE);
-      d.deaths = +d.COVID_DEATHS;
-      d.cases = +d.COVID_COUNT;
+      d.Deaths = +d.COVID_DEATHS;
+      d.Cases = +d.COVID_COUNT;
       d.case_07da = +d.case_07da;
       d.death_07da = +d.death_07da;
     });
 
-    var allGroup1 = ["cases", "deaths"];
+    var allGroup1 = ["Cases", "Deaths"];
 
     d3.select("#selectMeasure")
        .selectAll('myOptions')
@@ -57,7 +58,7 @@ function(data) {
        .attr("value", function (d) { return d; }) // corresponding value returned by the button
 
     //var selectedOption = d3.select("#selectMeasure").property("value")
-    var selectedOption = 'cases';
+    var selectedOption = 'Cases';
     //console.log(selectedOption);
     // List of groups (here I have one group per column)
     var allGroup = d3.map(data, function(d){return(d.name)}).keys()
@@ -105,7 +106,14 @@ function(data) {
     svg.append("g")
       .attr("class", "y axis")
       .call(d3.axisLeft(y));
-
+      // text label for the y axis
+  svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0  - margin.left - 4)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("Value");
 
   // This allows to find the closest X index of the mouse:
     var bisect = d3.bisector(function(d) { return d.year; }).left;
@@ -144,7 +152,7 @@ function(data) {
         )
         .attr("stroke", function(d){ return myColor("valueA") })
         .style("stroke-width", 2)
-        .style("fill", "none");
+        .style("fill", "none")
 
     var line2 = svg
       .append('g')
@@ -158,6 +166,80 @@ function(data) {
         .attr("stroke", function(d){ return "black"})
         .style("stroke-width", 3)
         .style("fill", "none");
+  // Add annotation to the chart
+
+  const annotations = [{
+       note: { label: "Stage 1" },
+       subject: {
+         y1: margin.top,
+         y2: height + margin.bottom + 30
+       },
+       y: margin.top,
+       data: { x: "03/23/2020"} //position the x based on an x scale
+     },
+     {
+       note: { label: "Stage 2" },
+       subject: {
+         y1: margin.top,
+         y2: height + margin.bottom + 30
+       },
+       y: margin.top,
+       data: { x: "5/4/2020"}
+     },
+     {
+       note: { label: "Stage 3"},
+       subject: {
+         y1: margin.top,
+         y2: height + margin.bottom + 30
+       },
+       y: margin.top,
+       data: { x: "05/22/2020"}
+     },
+     {
+       note: { label: "Stage 4"},
+       subject: {
+         y1: margin.top,
+         y2: height + margin.bottom + 30
+       },
+       y: margin.top,
+       data: { x: "06/12/2020"}
+     },
+     {
+       note: { label: "Stage 4.5"},
+       subject: {
+         y1: margin.top,
+         y2: height + margin.bottom + 30
+       },
+       y: margin.top,
+       data: { x: "07/04/2020"}
+     }]
+
+     //An example of taking the XYThreshold and merging it
+     //with custom settings so you don't have to
+     //repeat yourself in the annotations Objects
+     const type = d3.annotationCustomType(
+       d3.annotationXYThreshold,
+       {"note":{
+           "lineType":"none",
+           "orientation": "top",
+           "align":"middle"}
+       }
+     )
+
+     const makeAnnotations = d3.annotation()
+       .type(type)
+       //Gives you access to any data objects in the annotations array
+       .accessors({
+         x: function(d){ return x(new Date(d.x))},
+         y: function(d){ return y(d.y) }
+       })
+       .annotations(annotations)
+       .textWrap(10)
+
+     d3.select("svg")
+       .append("g")
+       .attr("class", "annotation-group")
+       .call(makeAnnotations)
 
   // Create a rect on top of the svg area: this rectangle recovers mouse position
 
@@ -205,6 +287,8 @@ function(data) {
     }
 
 
+
+
     // A function that update the chart
     function updateChart(selectedGroup, selectedMeasure) {
       selectedMeasure = selectedMeasure.toString();
@@ -243,10 +327,10 @@ function(data) {
           .attr("stroke", function(d){ return myColor(selectedGroup) })
 
       switch (selectedMeasure) {
-        case "deaths":
+        case "Deaths":
           rolling_avg = "death_07da";
           break;
-        case "cases":
+        case "Cases":
           rolling_avg = "case_07da";
           break;
       };
