@@ -1,2 +1,2 @@
-years,place,lat,lon,date,counts,deaths,tests,source
-5,Indianapolis,39.768507,-86.158035,7/26/20,13818,713,114588,MCPHD
+years,place,lat,lon,date,counts,deaths,tests,case_rate,death_rate,test_rate,source
+5,Indianapolis,39.768507,-86.158035,7/26/20,13818,713,114588,143.4,7.4,1188,MCPHD
