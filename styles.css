@@ -62,17 +62,16 @@ h3 {
  div.tooltip {
     position: relative;
     text-align: center;
-    width: 150px;
+    width: 200px;
+    height: 70px;
     padding: 10px;
-    font: 11px palatino;
+    font: 12px palatino;
     color: black;
-    background: lightsteelblue;
     pointer-events: none;
     opacity: 0.05;
     left:45%;
     right:40%;
 }
-
 
 .enter_button {
   position: relative;
