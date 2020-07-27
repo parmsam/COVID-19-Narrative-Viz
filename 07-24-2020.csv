@@ -1,4 +1,4 @@
-state,Country_Region,Last_Update,Lat,Long_,Confirmed,Deaths,Recovered,Active,FIPS,Incident_Rate,People_Tested,People_Hospitalized,Mortality_Rate,UID,ISO3,Testing_Rate,Hospitalization_Rate,my_state
+state,Country_Region,Last_Update,Lat,Long_,Confirmed,Deaths,Recovered,Active,FIPS,Incident_Rate,People_Tested,People_Hospitalized,Mortality_Rate,UID,ISO3,Testing_Rate,Hospitalization_Rate,mystate
 Alabama,US,7/25/20 4:47,32.3182,-86.9023,76005,1438,32510,42057,1,1550.114874,628984,9157,1.891980791,84000001,USA,12828.06992,12.04789159,0
 Alaska,US,7/25/20 4:47,61.3707,-152.4044,2249,19,800,1430,2,307.4315319,200572,,0.84481992,84000002,USA,27417.5888,,0
 American Samoa,US,7/25/20 4:47,-14.271,-170.132,0,0,,0,60,0,1037,,,16,ASM,1863.733578,,0
