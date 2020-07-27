@@ -1,4 +1,4 @@
-Geography,State_Fips,County_Fips,Year,Month,Month_Code,week,Initial_Claims,Pct. Change_from_Same_Week_Last_Year,Date
+Geography,State_Fips,County_Fips,Year,Month,Month_Code,week,Initial_Claims,Pct_Change_from_Same_Week_Last_Year,Date
 Indiana,18,0,2019,January,1,1,4578,-28.20%,1/5/2019
 Indiana,18,0,2019,January,1,2,4835,-11.00%,1/12/2019
 Indiana,18,0,2019,January,1,3,3840,11.00%,1/19/2019
