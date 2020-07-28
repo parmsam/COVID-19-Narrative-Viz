@@ -15,9 +15,10 @@ var path = d3.geoPath().projection(projection);
 
 // Define linear scale for output
 var color = d3.scaleLinear()
-			  .range(["lightblue","crimson"]);
+			  .range(["blue","crimson"]);
 
-var legendText = ["Indiana", "Rest of USA"];
+
+var legendText = ["Indianapolis", "US States"];
 
 //Create SVG element and append map to the SVG
 var svg = d3.select("#my_dataviz")
@@ -71,6 +72,10 @@ d3.csv("https://raw.githubusercontent.com/parmsam/covid-19-narrative-viz-indy/ma
 color.domain([0,1]); // setting the range of the input data
 // Load GeoJSON data and merge with states data
   d3.json("https://raw.githubusercontent.com/parmsam/covid-19-narrative-viz-indy/master/us-states.json", function(json) {
+
+    var max_area = d3.max( data, function(d) { return d['Incident_Rate']});
+    var color_scale = d3.scaleLinear().domain([0, max_area]).range(['cyan', 'darkblue']);
+
     // Loop through each state data value in the .csv file
     for (var i = 0; i < data.length; i++) {
 
@@ -153,14 +158,17 @@ color.domain([0,1]); // setting the range of the input data
     	.style("fill", function(d) {
 
     	// Get data value
-    	var value = d.properties.mystate;
+    	//var value = d.properties.mystate;
+    	var value = d.properties.incident_rate;
 
     	if (value) {
     	//If value exists…
-    	return color(value);
+    	// return color(value);
+    	return color_scale(value);
     	} else {
     	//If value is undefined…
-    	return "rgb(213,222,217)";
+    	// return "rgb(213,222,217)";
+      return color_scale(value);
     	}
     })
     ;
@@ -182,7 +190,7 @@ color.domain([0,1]); // setting the range of the input data
     	.attr("r", function(d) {
     		return Math.sqrt(d.years) * 2;
     	})
-    		.style("fill", "darkred")
+    		.style("fill", "crimson")
     		.style("opacity", 0.85)
 
     	// Modification of custom tooltip code provided by Malcolm Maclean, "D3 Tips and Tricks"
