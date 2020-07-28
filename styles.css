@@ -60,9 +60,9 @@ h3 {
     position: relative;
     text-align: center;
     width: 200px;
-    height: 70px;
+    height: 85px;
     padding: 10px;
-    font: 12px palatino;
+    font: 12px Recursive;
     color: black;
     pointer-events: none;
     opacity: 0.05;
@@ -73,7 +73,7 @@ h3 {
 .enter_button {
   position: relative;
   left:49%;
-  font-size:25px;
+  font-size:30px;
   text-decoration: none;
   background-color: #EEEEEE;
   color: #333333;

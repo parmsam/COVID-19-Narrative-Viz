@@ -1,5 +1,5 @@
 // set the dimensions and margins of the graph
-var margin = {top: 60, right: 70, bottom: 70, left:60},
+var margin = {top: 60, right: 70, bottom: 70, left:65},
     width = 875 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
@@ -127,69 +127,95 @@ function(data) {
       .style("stroke-width", 2)
       .style("fill", "none")
 
-      // Add annotation to the chart
-
-      const annotations = [
-        // {
-        //   note: { label: "A" },
-        //   subject: {
-        //     y1: margin.top + 50,
-        //     y2: height + margin.bottom + 25
-        //   },
-        //   y: margin.top + 50,
-        //   data: { x: "2020-03-16"},
-        // },
-        {
-          note: { label: "Drastic uptick in unemployement claims",
-            lineType:"none",
-            orientation: "leftRight",
-            "align": "middle" },
-          className: "anomaly",
-          type: d3.annotationCalloutCircle,
-          subject: { radius: 70 },
-          data: { x: "2020-04-15", y: 90000},
-          dx: 100
-        },
-        {
-          note: { label: "Small uptick",
-            lineType:"none",
-            orientation: "leftRight",
-            "align": "middle" },
-          className: "anomaly",
-          type: d3.annotationCalloutCircle,
-          subject: { radius: 30 },
-          data: { x: "2020-07-10", y: 10000},
-          dx: 40
+  // JS wrap text function (wrapping function taken from https://stackoverflow.com/questions/24784302/wrapping-text-in-d3/24785497)
+  function wrap(text, width) {
+      text.each(function () {
+          var text = d3.select(this),
+              words = text.text().split(/\s+/).reverse(),
+              word,
+              line = [],
+              lineNumber = 0,
+              lineHeight = 1.1,
+              x = text.attr("x"),
+              y = text.attr("y"),
+              dy = 0,
+              tspan = text.text(null)
+                          .append("tspan")
+                          .attr("x", x)
+                          .attr("y", y)
+                          .attr("dy", dy + "em");
+          while (word = words.pop()) {
+              line.push(word);
+              tspan.text(line.join(" "));
+              if (tspan.node().getComputedTextLength() > width) {
+                  line.pop();
+                  tspan.text(line.join(" "));
+                  line = [word];
+                  tspan = text.append("tspan")
+                              .attr("x", x)
+                              .attr("y", y)
+                              .attr("dy", ++lineNumber * lineHeight + dy + "em")
+                              .text(word);
               }
-          ]
+          }
+      });
+  }
 
-         //An example of taking the XYThreshold and merging it
-         //with custom settings so you don't have to
-         //repeat yourself in the annotations Objects
-         const type = d3.annotationCustomType(
-           d3.annotationXYThreshold,
-           {"note":{
-               "lineType":"none",
-               "orientation": "top",
-               "align":"middle"}
-           }
-         )
+      // Add annotations to the chart
 
-         const makeAnnotations = d3.annotation()
-           .type(type)
-           //Gives you access to any data objects in the annotations array
-           .accessors({
-             x: function(d){ return x(new d3.timeParse("%Y-%m-%d")(d.x))+38},
-             y: function(d){ return y(d.y) }
-           })
-           .annotations(annotations)
-           .textWrap(60)
+        //Drastic uptick in unemployement claims
+      svg
+        .append('circle')
+        .attr("cx",x(new d3.timeParse("%Y-%m-%d")("2020-03-28")))
+        .attr("cy",y(120000))
+        .attr('r', 70)
+        .style("stroke","black")
+        .style("fill","none");
+      svg
+        .append("line")
+        .style("stroke", "black")          // colour the line
+        .style("stroke-width", 1)         // adjust line width
+        .attr("x1", x(new d3.timeParse("%Y-%m-%d")("2020-05-19")))     // x position of the first end of the line
+        .attr("y1", y(120000))     // y position of the first end of the line
+        // .attr("y1", 300)     // y position of the first end of the line
+        .attr("x2", x(new d3.timeParse("%Y-%m-%d")("2020-06-13")))     // x position of the second end of the line
+        .attr("y2", y(120000));    // y position of the second end of the line
+        // .attr("y2", 200);    // y position of the second end of the line
+      svg
+        .append("text")
+        .attr("x", x(new d3.timeParse("%Y-%m-%d")("2020-06-13")))
+        .attr("y", y(130000))
+        .text("Drastic uptick in unemployement claims")
+        .style("fill","black")
+        .call(wrap, 70)
+        .style("font-size", "13px")
 
-         d3.select("svg")
-           .append("g")
-           .attr("class", "annotation-group")
-           .call(makeAnnotations)
-
+      //small uptick in unemployement clains
+      svg
+        .append('circle')
+        .attr("cx",x(new d3.timeParse("%Y-%m-%d")("2020-06-23")))
+        .attr("cy",y(41000))
+        .attr('r', 30)
+        .style("stroke","black")
+        .style("fill","none");
+      svg
+        .append("line")
+        .style("stroke", "black")          // colour the line
+        .style("stroke-width", 1)         // adjust line width
+        .attr("x1", x(new d3.timeParse("%Y-%m-%d")("2020-07-15")))     // x position of the first end of the line
+        .attr("y1", y(40000))     // y position of the first end of the line
+        // .attr("y1", 300)     // y position of the first end of the line
+        .attr("x2", x(new d3.timeParse("%Y-%m-%d")("2020-07-24")))     // x position of the second end of the line
+        .attr("y2", y(40000));    // y position of the second end of the line
+        // .attr("y2", 200);    // y position of the second end of the line
+      svg
+        .append("text")
+        .attr("x", x(new d3.timeParse("%Y-%m-%d")("2020-07-25")))
+        .attr("y", y(46000))
+        .text("Second smaller uptick in claims")
+        .style("fill","black")
+        .call(wrap, 70)
+        .style("font-size", "10px")
 
 
       // Create a rect on top of the svg area: this rectangle recovers mouse position
@@ -229,7 +255,7 @@ function(data) {
       monthShortNames[(selectedData.year).getMonth()] + ", " +
       (selectedData.year).getDate() + " there were " +
       "<b>" + selectedData.Cases + " unemployement claims</b>." + " This was a <b>" +
-      selectedData.Pct +  "change </b> from last year. </b>")
+      selectedData.Pct +  " change </b> from last year. </b>")
        //.style("left", 500+ "px")
        .style("top", -260 +  "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
              //.style("top", (d3.mouse(this)[1]-30) + "px").duration(2)
@@ -258,39 +284,7 @@ function(data) {
   // style("font-size", "15px").
   // attr("alignment-baseline","middle")
 
-  // JS wrap text function (wrapping function taken from https://stackoverflow.com/questions/24784302/wrapping-text-in-d3/24785497)
-  function wrap(text, width) {
-      text.each(function () {
-          var text = d3.select(this),
-              words = text.text().split(/\s+/).reverse(),
-              word,
-              line = [],
-              lineNumber = 0,
-              lineHeight = 1.1,
-              x = text.attr("x"),
-              y = text.attr("y"),
-              dy = 0,
-              tspan = text.text(null)
-                          .append("tspan")
-                          .attr("x", x)
-                          .attr("y", y)
-                          .attr("dy", dy + "em");
-          while (word = words.pop()) {
-              line.push(word);
-              tspan.text(line.join(" "));
-              if (tspan.node().getComputedTextLength() > width) {
-                  line.pop();
-                  tspan.text(line.join(" "));
-                  line = [word];
-                  tspan = text.append("tspan")
-                              .attr("x", x)
-                              .attr("y", y)
-                              .attr("dy", ++lineNumber * lineHeight + dy + "em")
-                              .text(word);
-              }
-          }
-      });
-  }
+
   // Add annotations to the chart
   svg
     .append("line")
@@ -300,7 +294,7 @@ function(data) {
       .attr("y2", y(55000))
       .attr("stroke", "grey")
       .attr("stroke-dasharray", "4")
-      
+
   svg
     .append("text")
     .attr("x", x(new d3.timeParse("%Y-%m-%d")("2020-03-15"))+-29+"px")
