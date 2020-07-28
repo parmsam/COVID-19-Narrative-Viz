@@ -222,7 +222,7 @@ color.domain([0,1]); // setting the range of the input data
     var legend = d3.select("body").append("svg")
          			.attr("class", "legend")
         			.attr("width", 140)
-       			.attr("height", 200)
+       			  .attr("height", 200)
       				.selectAll("g")
       				.data(color.domain().slice().reverse())
       				.enter()
@@ -232,13 +232,14 @@ color.domain([0,1]); // setting the range of the input data
      	legend.append("rect")
       		  .attr("width", 18)
       		  .attr("height", 18)
-      		  .style("fill", color);
+            .attr("y", "81%")
+      		  .style("fill", color)
 
      	legend.append("text")
      		  .data(legendText)
          	  .attr("x", 24)
          	  .attr("y", 9)
-         	  .attr("dy", ".35em")
+         	  .attr("dy", "84%")
          	  .text(function(d) { return d; });
 	});
 
