@@ -231,6 +231,23 @@ function(data) {
   // Add annotations to the chart
   svg
     .append("line")
+      .attr("x1", x(new d3.timeParse("%Y-%m-%d")("2020-03-06")) )
+      .attr("x2", x(new d3.timeParse("%Y-%m-%d")("2020-03-06")) )
+      .attr("y1", y(0))
+      .attr("y2", y(265))
+      .attr("stroke", "grey")
+      .attr("stroke-dasharray", "4")
+  svg
+    .append("text")
+    .attr("x", x(new d3.timeParse("%Y-%m-%d")("2020-03-06"))+-12+"px")
+    .attr("y", y(315))
+    .text("Public Health Emergency Declared")
+    .call(wrap, 70)
+    .style("font-size", "9px")
+
+
+  svg
+    .append("line")
       .attr("x1", x(new d3.timeParse("%Y-%m-%d")("2020-03-15")) )
       .attr("x2", x(new d3.timeParse("%Y-%m-%d")("2020-03-15")) )
       .attr("y1", y(0))
@@ -243,7 +260,7 @@ function(data) {
     .attr("y", y(305))
     .text("First Indiana Case")
     .call(wrap, 70)
-    .style("font-size", "10px")
+    .style("font-size", "9px")
 
     svg
       .append("line")
@@ -259,7 +276,23 @@ function(data) {
       .attr("y", y(325))
       .text("Marion County Case Peak")
       .call(wrap, 70)
-      .style("font-size", "10px")
+      .style("font-size", "9px")
+
+    svg
+      .append("line")
+        .attr("x1", x(new d3.timeParse("%Y-%m-%d")("2020-07-12")) )
+        .attr("x2", x(new d3.timeParse("%Y-%m-%d")("2020-07-12")) )
+        .attr("y1", y(0))
+        .attr("y2", y(265))
+        .attr("stroke", "grey")
+        .attr("stroke-dasharray", "4")
+    svg
+      .append("text")
+      .attr("x", x(new d3.timeParse("%Y-%m-%d")("2020-07-12"))+-12+"px")
+      .attr("y", y(315))
+      .text("Recent rise in many counties")
+      .call(wrap, 70)
+      .style("font-size", "9px")
 
     svg
       .append("line")

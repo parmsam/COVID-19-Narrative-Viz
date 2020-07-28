@@ -87,7 +87,7 @@ function(data) {
     .attr("x",0 - (height / 2))
     .attr("dy", "1em")
     .style("text-anchor", "middle")
-    .text("Unemployment Claims");
+    .text("Weekly Unemployment Claims");
 
 // This allows to find the closest X index of the mouse:
   var bisect = d3.bisector(function(d) { return d.year; }).left;
@@ -300,6 +300,7 @@ function(data) {
       .attr("y2", y(55000))
       .attr("stroke", "grey")
       .attr("stroke-dasharray", "4")
+      
   svg
     .append("text")
     .attr("x", x(new d3.timeParse("%Y-%m-%d")("2020-03-15"))+-29+"px")
