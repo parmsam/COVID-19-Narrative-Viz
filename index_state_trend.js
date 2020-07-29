@@ -4,7 +4,7 @@ var margin = {top: 60, right: 70, bottom: 35, left:45},
     height = 400 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
-var svg = d3.select("#my_dataviz")
+var svg = d3.select("#my_dataviz_state")
   .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -31,7 +31,7 @@ weekday[6] = "Saturday";
 // addChangeListener(confirmedRadio);
 
 //Read the data
-d3.csv("https://raw.githubusercontent.com/parmsam/covid-19-narrative-viz-indy/master/covid_report_county_date.csv",
+d3.csv("https://raw.githubusercontent.com/parmsam/covid-19-narrative-viz-indy/master/covid_report_state_date.csv",
 
 function(data) {
 
@@ -39,7 +39,7 @@ function(data) {
       // d.name = d.name;
       // d.year = d.year;
       // d.n = +d.n;
-      d.name = d.COUNTY_NAME;
+      d.name = d.name;
       d.year = d3.timeParse("%Y-%m-%d")(d.DATE);
       d.Deaths = +d.COVID_DEATHS;
       d.Cases = +d.COVID_COUNT;
@@ -50,7 +50,7 @@ function(data) {
 
     var allGroup1 = ["Cases", "Deaths"];
 
-    d3.select("#selectMeasure")
+    d3.select("#selectMeasure_state")
        .selectAll('myOptions')
       	.data(allGroup1)
        .enter()
@@ -58,21 +58,21 @@ function(data) {
        .text(function (d) { return d; }) // text showed in the menu
        .attr("value", function (d) { return d; }) // corresponding value returned by the button
 
-    //var selectedOption = d3.select("#selectMeasure").property("value")
+    //var selectedOption = d3.select("#selectMeasure_state").property("value")
     var selectedOption = 'Cases';
     //console.log(selectedOption);
     // List of groups (here I have one group per column)
     var allGroup = d3.map(data, function(d){return(d.name)}).keys()
 
     // add the options to the button
-    d3.select("#selectButton")
+    d3.select("#selectButton_state")
       .selectAll('myOptions')
      	.data(allGroup)
       .enter()
     	.append('option')
       .text(function (d) { return d; }) // text showed in the menu
       .attr("value", function (d) { return d; }) // corresponding value returned by the button
-      .property("selected", function(d){ return d === "Marion"; })
+      .property("selected", function(d){ return d === "Indiana"; })
 
     // A color scale: one color for each group
     // var myColor = d3.scaleOrdinal()
@@ -91,7 +91,7 @@ function(data) {
     tooltipColor = mytooltipColor[selectedOption];
 
     // Tooltip
-    var tooltip = d3.select("#my_dataviz")
+    var tooltip = d3.select("#my_dataviz_state")
       .append("div")
       .style("opacity", 0)
       .attr("class", "tooltip")
@@ -163,7 +163,7 @@ function(data) {
         .attr("alignment-baseline", "middle")
         .attr("font-weight","normal");
 
-    var choice = "Marion";
+    var choice = "Indiana";
     // Initialize line with first group of the list
     var line = svg
       .append('g')
@@ -234,30 +234,29 @@ function(data) {
       .attr("x1", x(new d3.timeParse("%Y-%m-%d")("2020-03-06")) )
       .attr("x2", x(new d3.timeParse("%Y-%m-%d")("2020-03-06")) )
       .attr("y1", y(0))
-      .attr("y2", y(265))
+      .attr("y2", y(715))
       .attr("stroke", "grey")
       .attr("stroke-dasharray", "4")
   svg
     .append("text")
     .attr("x", x(new d3.timeParse("%Y-%m-%d")("2020-03-06"))+-12+"px")
-    .attr("y", y(315))
+    .attr("y", y(815))
     .text("Public Health Emergency Declared")
     .call(wrap, 70)
     .style("font-size", "9px")
-
 
   svg
     .append("line")
       .attr("x1", x(new d3.timeParse("%Y-%m-%d")("2020-03-15")) )
       .attr("x2", x(new d3.timeParse("%Y-%m-%d")("2020-03-15")) )
       .attr("y1", y(0))
-      .attr("y2", y(265))
+      .attr("y2", y(730))
       .attr("stroke", "grey")
       .attr("stroke-dasharray", "4")
   svg
     .append("text")
     .attr("x", x(new d3.timeParse("%Y-%m-%d")("2020-03-15"))+-12+"px")
-    .attr("y", y(305))
+    .attr("y", y(805))
     .text("First Indiana Death")
     .call(wrap, 70)
     .style("font-size", "9px")
@@ -267,13 +266,13 @@ function(data) {
         .attr("x1", x(new d3.timeParse("%Y-%m-%d")("2020-05-05")) )
         .attr("x2", x(new d3.timeParse("%Y-%m-%d")("2020-05-05")) )
         .attr("y1", y(0))
-        .attr("y2", y(285))
+        .attr("y2", y(785))
         .attr("stroke", "grey")
         .attr("stroke-dasharray", "4")
     svg
       .append("text")
       .attr("x", x(new d3.timeParse("%Y-%m-%d")("2020-05-05"))+4+"px")
-      .attr("y", y(325))
+      .attr("y", y(825))
       .text("Marion County Case Peak")
       .call(wrap, 70)
       .style("font-size", "9px")
@@ -283,13 +282,13 @@ function(data) {
         .attr("x1", x(new d3.timeParse("%Y-%m-%d")("2020-07-12")) )
         .attr("x2", x(new d3.timeParse("%Y-%m-%d")("2020-07-12")) )
         .attr("y1", y(0))
-        .attr("y2", y(265))
+        .attr("y2", y(765))
         .attr("stroke", "grey")
         .attr("stroke-dasharray", "4")
     svg
       .append("text")
       .attr("x", x(new d3.timeParse("%Y-%m-%d")("2020-07-12"))+-12+"px")
-      .attr("y", y(315))
+      .attr("y", y(815))
       .text("Recent rise in many counties")
       .call(wrap, 70)
       .style("font-size", "9px")
@@ -299,13 +298,13 @@ function(data) {
         .attr("x1", x(new d3.timeParse("%Y-%m-%d")("2020-03-16")) )
         .attr("x2", x(new d3.timeParse("%Y-%m-%d")("2020-03-16")) )
         .attr("y1", y(0))
-        .attr("y2", y(355))
+        .attr("y2", y(850))
         .attr("stroke", "grey")
         .attr("stroke-dasharray", "4")
     svg
       .append("text")
       .attr("x", x(new d3.timeParse("%Y-%m-%d")("2020-03-16"))+-5+"px")
-      .attr("y", y(365))
+      .attr("y", y(870))
       .text("A")
       .style("font-size", "12px")
 
@@ -314,13 +313,13 @@ function(data) {
         .attr("x1", x(new d3.timeParse("%Y-%m-%d")("2020-03-23")) )
         .attr("x2", x(new d3.timeParse("%Y-%m-%d")("2020-03-23")) )
         .attr("y1", y(0))
-        .attr("y2", y(355))
+        .attr("y2", y(850))
         .attr("stroke", "grey")
         .attr("stroke-dasharray", "4")
     svg
       .append("text")
       .attr("x", x(new d3.timeParse("%Y-%m-%d")("2020-03-23"))+-5+"px")
-      .attr("y", y(365))
+      .attr("y", y(870))
       .text("B")
       .style("font-size", "12px")
 
@@ -329,13 +328,13 @@ function(data) {
         .attr("x1", x(new d3.timeParse("%Y-%m-%d")("2020-04-02")) )
         .attr("x2", x(new d3.timeParse("%Y-%m-%d")("2020-04-02")) )
         .attr("y1", y(0))
-        .attr("y2", y(355))
+        .attr("y2", y(850))
         .attr("stroke", "grey")
         .attr("stroke-dasharray", "4")
     svg
       .append("text")
       .attr("x", x(new d3.timeParse("%Y-%m-%d")("2020-04-02"))+-5+"px")
-      .attr("y", y(365))
+      .attr("y", y(870))
       .text("C")
       .style("font-size", "12px")
 
@@ -344,13 +343,13 @@ function(data) {
         .attr("x1", x(new d3.timeParse("%Y-%m-%d")("2020-05-01")) )
         .attr("x2", x(new d3.timeParse("%Y-%m-%d")("2020-05-01")) )
         .attr("y1", y(0))
-        .attr("y2", y(355))
+        .attr("y2", y(850))
         .attr("stroke", "grey")
         .attr("stroke-dasharray", "4")
     svg
       .append("text")
       .attr("x", x(new d3.timeParse("%Y-%m-%d")("2020-05-01"))+-5+"px")
-      .attr("y", y(365))
+      .attr("y", y(870))
       .text("D")
       .style("font-size", "12px")
 
@@ -359,13 +358,13 @@ function(data) {
         .attr("x1", x(new d3.timeParse("%Y-%m-%d")("2020-03-20")) )
         .attr("x2", x(new d3.timeParse("%Y-%m-%d")("2020-03-20")) )
         .attr("y1", y(0))
-        .attr("y2", y(385))
+        .attr("y2", y(920))
         .attr("stroke", "grey")
         .attr("stroke-dasharray", "4")
     svg
       .append("text")
       .attr("x", x(new d3.timeParse("%Y-%m-%d")("2020-03-20"))+-19+"px")
-      .attr("y", y(390))
+      .attr("y", y(935))
       .text("Stage 1")
       .style("font-size", "13px")
 
@@ -374,13 +373,13 @@ function(data) {
         .attr("x1", x(new d3.timeParse("%Y-%m-%d")("2020-05-04")) )
         .attr("x2", x(new d3.timeParse("%Y-%m-%d")("2020-05-04")) )
         .attr("y1", y(0))
-        .attr("y2", y(385))
+        .attr("y2", y(920))
         .attr("stroke", "grey")
         .attr("stroke-dasharray", "4")
     svg
       .append("text")
       .attr("x", x(new d3.timeParse("%Y-%m-%d")("2020-05-04"))+-19+"px")
-      .attr("y", y(390))
+      .attr("y", y(935))
       .text("Stage 2")
       .style("font-size", "13px")
 
@@ -389,13 +388,13 @@ function(data) {
         .attr("x1", x(new d3.timeParse("%Y-%m-%d")("2020-05-22")) )
         .attr("x2", x(new d3.timeParse("%Y-%m-%d")("2020-05-22")) )
         .attr("y1", y(0))
-        .attr("y2", y(385))
+        .attr("y2", y(920))
         .attr("stroke", "grey")
         .attr("stroke-dasharray", "4")
     svg
       .append("text")
       .attr("x", x(new d3.timeParse("%Y-%m-%d")("2020-05-22"))+-19+"px")
-      .attr("y", y(390))
+      .attr("y", y(935))
       .text("Stage 3")
       .style("font-size", "13px")
 
@@ -404,13 +403,13 @@ function(data) {
         .attr("x1", x(new d3.timeParse("%Y-%m-%d")("2020-06-12")) )
         .attr("x2", x(new d3.timeParse("%Y-%m-%d")("2020-06-12")) )
         .attr("y1", y(0))
-        .attr("y2", y(385))
+        .attr("y2", y(920))
         .attr("stroke", "grey")
         .attr("stroke-dasharray", "4")
     svg
       .append("text")
       .attr("x", x(new d3.timeParse("%Y-%m-%d")("2020-06-12"))+-19+"px")
-      .attr("y", y(390))
+      .attr("y", y(920))
       .text("Stage 4")
       .style("font-size", "13px")
 
@@ -419,13 +418,13 @@ function(data) {
         .attr("x1", x(new d3.timeParse("%Y-%m-%d")("2020-07-04")) )
         .attr("x2", x(new d3.timeParse("%Y-%m-%d")("2020-07-04")) )
         .attr("y1", y(0))
-        .attr("y2", y(385))
+        .attr("y2", y(920))
         .attr("stroke", "grey")
         .attr("stroke-dasharray", "4")
     svg
       .append("text")
       .attr("x", x(new d3.timeParse("%Y-%m-%d")("2020-07-04"))+-19+"px")
-      .attr("y", y(390))
+      .attr("y", y(920))
       .text("Stage 4.5")
       .style("font-size", "13px")
   // Create a rect on top of the svg area: this rectangle recovers mouse position
@@ -485,7 +484,7 @@ function(data) {
         .duration(200)
         .style("opacity", 0)
     }
-    //var svg = d3.select("#my_dataviz")
+    //var svg = d3.select("#my_dataviz_state")
 
     // Handmade legend
     svg.append("circle").attr("cx",350).attr("cy",-50).attr("r", 6).style("fill", "black")
@@ -611,10 +610,10 @@ function(data) {
 
 
     // When the button is changed, run the updateChart function
-    d3.select("#selectButton").on("change", function(d) {
+    d3.select("#selectButton_state").on("change", function(d) {
         // recover the county option that has been chosen
         var selectedOption = d3.select(this).property("value");
-        var selectedMeasure = d3.select("#selectMeasure").property("value");
+        var selectedMeasure = d3.select("#selectMeasure_state").property("value");
         //console.log(selectedOption);
         //console.log(selectedMeasure);
         // run the updateChart function with this selected option
@@ -622,10 +621,10 @@ function(data) {
         choice = selectedOption;
     })
 
-    d3.select("#selectMeasure").on("change", function(d) {
+    d3.select("#selectMeasure_state").on("change", function(d) {
         // recover the county option that has been chosen
         var selectedMeasure = d3.select(this).property("value");
-        var selectedOption = d3.select("#selectButton").property("value");
+        var selectedOption = d3.select("#selectButton_state").property("value");
 
         // run the updateChart function with this selected option
         updateChart(selectedOption, selectedMeasure)

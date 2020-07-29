@@ -14,32 +14,12 @@
   </head>
 
   <body>
-        <h2 class="Page1_title">Where are we headed? COVID-19 in Indiana Counties and the State Gov. response (as of June 24, 2020)</h2>
+        <h2 class="Page1_title" >Where are we headed? COVID-19 in State of Indiana and the State Gov. response (as of June 24, 2020)</h2>
         <!--div class="radioButtons1">
             <span><input type="radio" name="type" id="confirmed" value="confirmed" checked="checked" /><label for="confirmed">Confirmed</label></span>
             <span><input type="radio" name="type" id="deaths" value="deaths" /><label for="deaths">Deaths</label></span>
         </div-->
-        <p class="case_death_text" style="margin-left: auto; margin-right: auto; max-width: 50%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          Lastly, in looking at where are headed, we must look at the trends and the timeline of events.
-
-          <br><br>
-          Why focus on Marion County? Marion County holds the city of Indianapolis (the capital of Indiana) and represents the most populated county in Indiana, with a population approaching one million (964,582 as of 2019).
-
-          <br><br>The first COVID-19 case in Indiana was detected on March 6, 2020 (in Marion County), leading Indiana's Governor to declare a public health emergency.
-          The first COVID-19 death in Indiana occuring on March 15th, also in Marion County.
-
-          <!-- One can see the COVID-19 case trend below for Marion County with a black line indicating the rolling 7-day average. Dropdown menus allow one to examine
-          the case vs. death trends and select other Indiana counties. Annotations indicate major response events from the State of Indiana, including <a href="https://www.backontrack.in.gov/2348.htm">Indiana Back on Track stages</a>
-           for reopening.<br><br> -->
-
-          COVID-19 case diagnoses peaked in Marion County on May 5th at 305 cases with deaths peaking most recently on May 20th at 16 deaths (as shown below).
-            <!-- <br><br> -->
-            In response to COVID-19, a series of public health measures were implemented by the the State of Indiana. These interventions have significantly reduced cases and deaths in many counties.
-            Unfortunately, the rolling 7-day average curve indicates a recent rise occuring after initiation of Back on Track stage 4.5.
-            Appropriately, this has very recently been followed up with a <a href="https://www.in.gov/gov/files/Executive%20Order%2020-37%20Face%20Covering%20Requirement.pdf">
-              mask mandate for the state of Indiana</a>. <br><br>It is the hope that such interventions will prevent many counties across Indiana from revisiting or exceeding peak levels.
-            <br><br>
-        </p>
+        <!-- Create div for graph -->
         <p style="max-width: 50%; margin-left: auto; margin-right: auto;"><b>Timeline and trend chart:</b></p>
         <ul class="response_list" style="max-width: 50%; margin-left: auto; margin-right: auto;">
          <li> <b>Event A:</b> On March 16, Indiana's governor ordered all bars, restaurants, and nightclubs to close to in-house patrons. On March 19,
@@ -60,29 +40,23 @@
            &nbsp;&nbsp;<a href="https://www.backontrack.in.gov/files/Stage_4.pdf"><img src="images/stage4_img.png" width=250px;></a>
            &nbsp;&nbsp;<a href="https://www.backontrack.in.gov/files/BackOnTrack-IN_Stage4.5_UPDATE_STAGE4.5.pdf"><img src="images/stage4.5_img.png" width=250px;></a></li>
        </ul>
-        <!-- <br><br>
-        <img src="backontrack_infographic.jpg" style="  display: block; margin-left: auto; margin-right: auto; width: 30%; ">
-        <br><br> -->
+
         <div class="chartButtons" style="max-width: 70%; margin-left: auto; margin-right: auto;">
         <br><br>
-        <div class="selectM"><select id="selectMeasure"></select></div> <br>
-        <div class="selectB"><select id="selectButton"></select></div>
+        <div class="selectM"><select id="selectMeasure_state"></select></div> <br>
+        <div class="selectB"><select id="selectButton_state"></select></div>
         </div>
         <br>
-        <!-- Create div for graph -->
-        <div id="my_dataviz"></div>
-        <script src="index.js"></script>
+        <div style="max-width: 50%; margin-left: auto; margin-right: auto;">
+        <div id="my_dataviz_state"></div>
+        <script src="index_state_trend.js"></script>
+        </div>
         <br><br><br>
 
 
 
-
   </body>
-  <a href="page2.html" class="enter_button" style="position: absolute;
-width: 2%; left: 20%; top: 25%">&lt;&lt;</a>
-  <a href="index.html" class="enter_button" style="position: absolute;
-  width: 6%; left: 77%; top: 22%"> Start Over</a>
+  <a href="page1.html" class="enter_button" style="position: absolute;
+  width: 8%; left: 77%; top: 70%; font: 30px;">Back to county trends</a>
 
-  <a href="page_state_trend.html" class="mini_enter_button" style="position: absolute;
-  width: 5%; left: 77%; top: 120%; font: 5px;">Click here for state trend</a>
 </html>

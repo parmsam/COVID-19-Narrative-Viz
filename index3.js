@@ -18,7 +18,7 @@ var color = d3.scaleLinear()
 			  .range(["blue","crimson"]);
 
 
-var legendText = ["Indianapolis", "US States"];
+var legendText = ["Indianapolis", "Incident Rate"];
 
 //Create SVG element and append map to the SVG
 var svg = d3.select("#my_dataviz")
