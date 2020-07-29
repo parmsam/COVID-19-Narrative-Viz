@@ -14,13 +14,19 @@
   </head>
 
   <body>
-        <h2 class="Page1_title" >Where are we headed? COVID-19 in State of Indiana and the State Gov. response (as of June 24, 2020)</h2>
+        <h2 class="Page1_title">Where are we headed? COVID-19 in Indiana Counties and the State Gov. response (as of June 24, 2020)</h2>
         <!--div class="radioButtons1">
             <span><input type="radio" name="type" id="confirmed" value="confirmed" checked="checked" /><label for="confirmed">Confirmed</label></span>
             <span><input type="radio" name="type" id="deaths" value="deaths" /><label for="deaths">Deaths</label></span>
         </div-->
         <!-- Create div for graph -->
+
+        <p class="case_death_text" style="margin-left: auto; margin-right: auto; max-width: 50%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          Why focus on Marion County first? Marion County holds the city of Indianapolis (the capital of Indiana) and represents the most populated county in Indiana, with a population approaching one million (964,582 as of 2019).
+        </p>
         <p style="max-width: 50%; margin-left: auto; margin-right: auto;"><b>Timeline and trend chart:</b></p>
+
+
         <ul class="response_list" style="max-width: 50%; margin-left: auto; margin-right: auto;">
          <li> <b>Event A:</b> On March 16, Indiana's governor ordered all bars, restaurants, and nightclubs to close to in-house patrons. On March 19,
            State of Emergency was to be extended for another 30 days,
@@ -41,22 +47,20 @@
            &nbsp;&nbsp;<a href="https://www.backontrack.in.gov/files/BackOnTrack-IN_Stage4.5_UPDATE_STAGE4.5.pdf"><img src="images/stage4.5_img.png" width=250px;></a></li>
        </ul>
 
-        <div class="chartButtons" style="max-width: 70%; margin-left: auto; margin-right: auto;">
-        <br><br>
-        <div class="selectM"><select id="selectMeasure_state"></select></div> <br>
-        <div class="selectB"><select id="selectButton_state"></select></div>
-        </div>
-        <br>
-        <div style="max-width: 50%; margin-left: auto; margin-right: auto;">
-        <div id="my_dataviz_state"></div>
-        <script src="index_state_trend.js"></script>
-        </div>
-        <br><br><br>
+       <div class="chartButtons" style="max-width: 70%; margin-left: auto; margin-right: auto;">
+       <br><br>
+       <div class="selectM"><select id="selectMeasure"></select></div> <br>
+       <div class="selectB"><select id="selectButton"></select></div>
+       </div>
+       <!-- Create div for graph -->
+       <div id="my_dataviz"></div>
+       <script src="index.js"></script>
+       <br><br>
 
 
 
   </body>
   <a href="page1.html" class="enter_button" style="position: absolute;
-  width: 8%; left: 77%; top: 70%; font: 30px;">Back to county trends</a>
+  width: 8%; left: 77%; top: 70%; font: 30px;">Back to state trends</a>
 
 </html>
