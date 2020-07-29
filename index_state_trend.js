@@ -161,7 +161,9 @@ function(data) {
         .style("opacity", 1)
         .attr("text-anchor", "left")
         .attr("alignment-baseline", "middle")
-        .attr("font-weight","normal");
+        .attr("font-weight","bold")
+        .attr("fill","black")
+        .attr("font-size", "17px");
 
     var choice = "Indiana";
     // Initialize line with first group of the list

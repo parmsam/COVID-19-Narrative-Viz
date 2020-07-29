@@ -74,9 +74,9 @@ h3 {
     position: relative;
     text-align: center;
     width: 200px;
-    height: 85px;
+    height: 95px;
     padding: 10px;
-    font: 12px Recursive;
+    font: 13px Recursive;
     color: black;
     pointer-events: none;
     opacity: 0.05;

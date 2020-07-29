@@ -241,6 +241,7 @@ color.domain([0,1]); // setting the range of the input data
          	  .attr("y", 9)
          	  .attr("dy", "84%")
          	  .text(function(d) { return d; });
+
 	});
 
 });
