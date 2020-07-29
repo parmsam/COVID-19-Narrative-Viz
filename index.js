@@ -356,15 +356,15 @@ function(data) {
 
     svg
       .append("line")
-        .attr("x1", x(new d3.timeParse("%Y-%m-%d")("2020-03-20")) )
-        .attr("x2", x(new d3.timeParse("%Y-%m-%d")("2020-03-20")) )
+        .attr("x1", x(new d3.timeParse("%Y-%m-%d")("2020-03-24")) )
+        .attr("x2", x(new d3.timeParse("%Y-%m-%d")("2020-03-24")) )
         .attr("y1", y(0))
         .attr("y2", y(385))
         .attr("stroke", "grey")
         .attr("stroke-dasharray", "4")
     svg
       .append("text")
-      .attr("x", x(new d3.timeParse("%Y-%m-%d")("2020-03-20"))+-19+"px")
+      .attr("x", x(new d3.timeParse("%Y-%m-%d")("2020-03-24"))+-19+"px")
       .attr("y", y(390))
       .text("Stage 1")
       .style("font-size", "13px")
